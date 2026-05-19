@@ -15,6 +15,7 @@ import { motion } from 'framer-motion';
  * an API route, Airtable, etc.) when you're ready.
  */
 export default function PreOrder() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('patient');
   const [size, setSize] = useState('');
@@ -24,12 +25,12 @@ export default function PreOrder() {
     e.preventDefault();
     // TODO: wire this up to your backend / form service.
     // For now we just simulate success.
-    console.log('Pre-order:', { email, role, size });
+    console.log('Pre-order:', { name, email, role, size });
     setSubmitted(true);
   }
 
   return (
-    <section id="preorder" className="relative bg-white py-32 sm:py-40 px-4">
+    <section id="preorder" className="relative bg-white pt-16 sm:pt-24 pb-32 sm:pb-40 px-4">
       <div className="max-w-2xl mx-auto text-center">
         <div className="text-xs uppercase tracking-[0.3em] text-ink/40 mb-4">
           Pre-order now
@@ -56,7 +57,7 @@ export default function PreOrder() {
           {submitted ? (
             <div className="float-card px-8 py-12">
               <div className="font-serif text-3xl text-ink">
-                You're <span className="italic">on the list.</span>
+                Thanks <span className="italic">{name}</span>, you're on the list.
               </div>
               <p className="mt-3 text-ink/65">
                 We'll email <span className="font-medium text-ink">{email}</span> when
@@ -68,6 +69,25 @@ export default function PreOrder() {
               onSubmit={handleSubmit}
               className="float-card px-6 sm:px-10 py-8 text-left space-y-6"
             >
+              {/* Name */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-xs uppercase tracking-wider text-ink/50 mb-2"
+                >
+                  Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  className="w-full px-4 py-3 bg-white/60 border border-ink/10 rounded-xl text-ink placeholder-ink/30 focus:outline-none focus:border-ink/30 focus:bg-white transition-colors"
+                />
+              </div>
+
               {/* Email */}
               <div>
                 <label

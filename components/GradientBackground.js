@@ -11,8 +11,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 export default function GradientBackground() {
   const { scrollY } = useScroll();
 
-  // Fade out from full opacity at the top to 0 by ~600px of scroll
-  const opacity = useTransform(scrollY, [0, 600], [1, 0]);
+  // Fade out from full opacity at the top to 0 by ~1600px of scroll
+  const opacity = useTransform(scrollY, [0, 1600], [1, 0]);
 
   return (
     <motion.div
