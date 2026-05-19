@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Distinctive typography — Instrument Serif for the editorial headline, Geist Sans for body */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-sans: 'Geist', system-ui, sans-serif;
-}
-
 html,
 body {
   padding: 0;
@@ -20,6 +11,13 @@ body {
   background: #FFFFFF;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force italic serif text to use bold weight for Zodiak Bold Italic variant */
+.font-serif em,
+.font-serif i,
+.font-serif .italic {
+  font-weight: 700;
 }
 
 * {

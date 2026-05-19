@@ -19,7 +19,7 @@ export default function Hero() {
       <FloatingCards />
 
       {/* Centered editorial content */}
-      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center justify-center text-center min-h-[80vh] mt-12">
+      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center justify-center text-center min-h-[80vh] mt-12 pointer-events-none">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,7 +54,7 @@ export default function Hero() {
         >
           <a
             href="#preorder"
-            className="group inline-flex items-center justify-center px-10 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300"
+            className="group inline-flex items-center justify-center px-10 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 pointer-events-auto"
           >
             Preorder
             <svg
