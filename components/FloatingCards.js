@@ -4,16 +4,24 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function FloatingCards() {
-  const [pct, setPct] = useState(42);
+  const [pct, setPct] = useState(45);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setPct((p) => {
-        if (p >= 75) return 30;
-        return p + 1;
-      });
-    }, 50);
-    return () => clearInterval(interval);
+    const startTime = Date.now();
+    const cycleDuration = 4500; // 4.5 seconds per oscillation
+
+    const animate = () => {
+      const elapsed = (Date.now() - startTime) % cycleDuration;
+      const normalized = elapsed / cycleDuration;
+      // Smooth sine wave: oscillates between 38% and 52% (center 45, amplitude 7)
+      const sineWave = Math.sin(normalized * Math.PI * 2);
+      const newPct = 45 + sineWave * 7;
+      setPct(Math.round(newPct));
+      requestAnimationFrame(animate);
+    };
+
+    const rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   const strokeDashoffset = 100 - pct;
@@ -27,8 +35,8 @@ export default function FloatingCards() {
         transition={{ duration: 0.8, delay: 0.3 }}
         className="absolute top-32 left-4 sm:left-12 lg:left-24 z-10"
       >
-        <div className="float-card animate-float-slow p-0">
-          <div className="px-4 py-3 flex items-center gap-3 w-56 transition-transform duration-300 hover:scale-110">
+        <div className="float-card animate-float-slow p-0 transition-transform duration-300 hover:scale-110">
+          <div className="px-4 py-3 flex items-center gap-3 w-56">
             <div className="relative w-10 h-10 shrink-0">
               <svg viewBox="0 0 40 40" className="w-10 h-10 -rotate-90">
                 <circle cx="20" cy="20" r="16" fill="none" stroke="#E5E7EB" strokeWidth="4" />
@@ -64,8 +72,8 @@ export default function FloatingCards() {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="absolute top-44 right-4 sm:right-12 lg:right-24 z-10"
       >
-        <div className="float-card animate-float-slower p-0">
-          <div className="px-4 py-3 w-64 transition-transform duration-300 hover:scale-110">
+        <div className="float-card animate-float-slower p-0 transition-transform duration-300 hover:scale-110">
+          <div className="px-4 py-3 w-64">
             <div className="flex items-center gap-2">
               <span className="w-3.5 h-3.5 rounded-full bg-red-500 animate-pulse-glow" />
               <span className="text-sm font-semibold text-ink">Threshold exceeded</span>
@@ -84,8 +92,8 @@ export default function FloatingCards() {
         transition={{ duration: 0.8, delay: 0.7 }}
         className="absolute bottom-40 left-2 sm:left-8 lg:left-20 z-10"
       >
-        <div className="float-card animate-float-slow p-0">
-          <div className="px-4 py-3 flex items-center gap-3 w-60 transition-transform duration-300 hover:scale-110">
+        <div className="float-card animate-float-slow p-0 transition-transform duration-300 hover:scale-110">
+          <div className="px-4 py-3 flex items-center gap-3 w-60">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center shrink-0">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-blue-600">
                 <path d="M3 12h4l3-9 4 18 3-9h4" />
@@ -106,8 +114,8 @@ export default function FloatingCards() {
         transition={{ duration: 0.8, delay: 0.9 }}
         className="absolute bottom-44 right-2 sm:right-8 lg:right-16 z-10"
       >
-        <div className="float-card animate-float-slower p-0">
-          <div className="px-4 py-4 w-64 transition-transform duration-300 hover:scale-110">
+        <div className="float-card animate-float-slower p-0 transition-transform duration-300 hover:scale-110">
+          <div className="px-4 py-4 w-64">
             <div className="flex items-center justify-between">
               <div className="text-sm font-semibold text-ink">🩺 Clinician panel</div>
             </div>

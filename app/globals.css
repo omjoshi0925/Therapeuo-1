@@ -26,13 +26,19 @@ body {
   box-sizing: border-box;
 }
 
-/* The hero gradient — mirrors the blue → purple → pink → soft-white wash from Arc Max */
+/* The hero gradient — upside-down V arch centered at top */
 .therapeuo-gradient {
   background:
-    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 55%),
-    radial-gradient(ellipse 60% 50% at 50% 75%, rgba(255, 200, 220, 0.85) 0%, rgba(255, 200, 220, 0) 60%),
-    linear-gradient(180deg, #3A4FE8 0%, #6B5BE5 35%, #B475D6 60%, #E89CC4 80%, #FFFFFF 150%);
-  background-size: 100% 150%;
+    radial-gradient(ellipse 70% 90% at 50% 0%, #3A4FE8 0%, #6B5BE5 25%, #B475D6 45%, #E89CC4 65%, rgba(255, 255, 255, 0) 85%),
+    linear-gradient(180deg, #4858EA 0%, #6B5BE5 30%, #B475D6 55%, #E89CC4 75%, #FFFFFF 95%);
+  background-size: 100% 100%;
+}
+
+/* Bottom gradient — arch-shaped (upside-down V pointing up from bottom) */
+.therapeuo-gradient-bottom {
+  background:
+    radial-gradient(ellipse 70% 90% at 50% 100%, #3A4FE8 0%, #5B6FE5 25%, #8AA8E8 50%, #C7D6F5 70%, rgba(255,255,255,0) 88%),
+    linear-gradient(0deg, #4858EA 0%, #6B7BE5 25%, #A8BEEC 55%, #E0E8FA 80%, #FFFFFF 100%);
 }
 
 /* Soft floating card style — matches Dia's hovering UI cards */
@@ -53,7 +59,7 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.025;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

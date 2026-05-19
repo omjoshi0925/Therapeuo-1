@@ -11,14 +11,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 export default function GradientBackground() {
   const { scrollY } = useScroll();
 
-  // Fade out from full opacity at the top to 0 by ~1600px of scroll
-  const opacity = useTransform(scrollY, [0, 1600], [1, 0]);
+  // Fade out from full opacity at the top to 0 by ~900px of scroll (reaches credibility bar)
+  const opacity = useTransform(scrollY, [0, 900], [1, 0]);
 
   return (
     <motion.div
       aria-hidden="true"
       style={{ opacity }}
-      className="therapeuo-gradient grain fixed inset-0 z-0 pointer-events-none"
+      className="therapeuo-gradient grain fixed inset-0 z-0 pointer-events-none bg-cover"
     />
   );
 }

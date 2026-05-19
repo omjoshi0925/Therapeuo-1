@@ -8,7 +8,7 @@ export default function CredibilityBar() {
   const tiles = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
   return (
-    <section className="relative border-y border-ink/10 bg-white overflow-hidden py-8 sm:py-12 px-4">
+    <section className="relative border-t border-ink/10 bg-white overflow-hidden py-8 sm:py-12 px-4 pb-0">
       {/* Centered "Designed by:" label */}
       <div className="text-center mb-6">
         <span className="text-xs uppercase tracking-wider text-ink/60">
