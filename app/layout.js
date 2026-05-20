@@ -9,6 +9,11 @@ const zodiak = localFont({
       style: 'normal',
     },
     {
+      path: '../public/fonts/Zodiak-Bold.otf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
       path: '../public/fonts/Zodiak-BoldItalic.otf',
       weight: '700',
       style: 'italic',
@@ -36,7 +41,7 @@ const archivo = localFont({
 });
 
 export const metadata = {
-  title: 'Therapeuo — Smart Weight-Bearing Insole',
+  title: 'Therapeuo',
   description:
     'A wearable pressure sensor system for physical therapy patients. Real-time weight-bearing feedback. No guesswork. No delay.',
 };

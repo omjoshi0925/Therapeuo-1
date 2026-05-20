@@ -30,7 +30,14 @@ export default function PreOrder() {
   }
 
   return (
-    <section id="preorder" className="relative bg-white pt-16 sm:pt-24 pb-32 sm:pb-40 px-4">
+    <section
+      id="preorder"
+      className="relative pt-32 sm:pt-48 pb-32 sm:pb-40 px-4"
+      style={{
+        background:
+          'linear-gradient(to bottom, #0A0A0B 0%, #FFFFFF 35%, #FFFFFF 100%)',
+      }}
+    >
       <div className="max-w-2xl mx-auto text-center">
         <div className="text-xs uppercase tracking-[0.3em] text-ink/40 mb-4">
           Pre-order now

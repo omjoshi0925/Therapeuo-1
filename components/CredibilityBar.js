@@ -1,34 +1,62 @@
 'use client';
 
-/**
- * Credibility bar with infinite-scrolling marquee.
- * Shows placeholder logos (represented as letter tiles) with centered "Designed by:" label.
- */
-export default function CredibilityBar() {
-  const tiles = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const LOGOS = [
+  '/logos/cal.png',
+  '/logos/ucberkeley.svg.png',
+  '/logos/ucdavis.png',
+  '/logos/davis.png',
+  '/logos/purdue.png',
+  '/logos/nhs.png',
+  '/logos/ensigngroup.png',
+];
 
+export default function CredibilityBar() {
   return (
-    <section className="relative border-t border-ink/10 bg-white overflow-hidden py-8 sm:py-12 px-4 pb-0">
-      {/* Centered "Designed by:" label */}
+    <section
+      className="relative border-t border-ink/10 overflow-hidden py-8 sm:py-12 px-4 pb-0"
+      style={{
+        background:
+          'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 55%, #0A0A0B 100%)',
+      }}
+    >
       <div className="text-center mb-6">
-        <span className="text-xs uppercase tracking-wider text-ink/60">
+        <span className="text-sm uppercase tracking-wider text-ink/60">
           Designed by:
         </span>
       </div>
 
-      {/* Scrolling marquee track */}
-      <div className="overflow-hidden group">
+      <div className="overflow-x-hidden group" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
         <div
-          className="flex gap-6 animate-marquee"
-          style={{ animationDuration: '25s', width: 'fit-content' }}
+          className="flex animate-marquee"
+          style={{ animationDuration: '40s', width: 'fit-content' }}
         >
-          {/* Items duplicated for seamless loop */}
-          {[...tiles, ...tiles].map((letter, i) => (
+          {[...LOGOS, ...LOGOS].map((src, i) => (
             <div
               key={i}
-              className="w-24 h-24 rounded-xl bg-ink/8 flex items-center justify-center text-sm font-semibold text-ink shrink-0 transition-transform duration-300 hover:scale-125"
+              className="shrink-0 transition-transform duration-300 hover:scale-110"
+              style={{
+                height: '96px',
+                width: 'auto',
+                minWidth: '140px',
+                maxWidth: '240px',
+                marginRight: '96px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '0 1rem',
+              }}
             >
-              {letter}
+              <img
+                src={src}
+                alt=""
+                style={{
+                  maxHeight: '100%',
+                  maxWidth: '100%',
+                  width: 'auto',
+                  height: 'auto',
+                  objectFit: 'contain',
+                }}
+              />
             </div>
           ))}
         </div>

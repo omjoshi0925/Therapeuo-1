@@ -52,8 +52,10 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="mt-10"
         >
-          <a
-            href="#preorder"
+          <button
+            onClick={() => {
+              document.getElementById('preorder')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
             className="group inline-flex items-center justify-center px-10 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 pointer-events-auto"
           >
             Preorder
@@ -66,7 +68,7 @@ export default function Hero() {
             >
               <path d="M5 10h10M11 6l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </a>
+          </button>
         </motion.div>
 
         {/* Small subscript like Dia's tagline */}

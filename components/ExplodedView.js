@@ -11,25 +11,6 @@ const LAYERS = [
   { id: 6, name: 'Base Footbed',   sub: 'Medical-grade silicone',   desc: 'A thin silicone base. Slides into any standard shoe.',           fill: '#E5E7EB', stroke: '#6B7280', yOffset: 300 },
 ];
 
-function mixHex(c1, c2, t) {
-  const h2r = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
-  const [r1, g1, b1] = h2r(c1);
-  const [r2, g2, b2] = h2r(c2);
-  return `rgb(${Math.round(r1 + (r2 - r1) * t)}, ${Math.round(g1 + (g2 - g1) * t)}, ${Math.round(b1 + (b2 - b1) * t)})`;
-}
-
-function interpolateColor(t, stops) {
-  if (t <= stops[0].at) return stops[0].color;
-  if (t >= stops[stops.length - 1].at) return stops[stops.length - 1].color;
-  for (let i = 0; i < stops.length - 1; i++) {
-    if (t >= stops[i].at && t <= stops[i + 1].at) {
-      const localT = (t - stops[i].at) / (stops[i + 1].at - stops[i].at);
-      return mixHex(stops[i].color, stops[i + 1].color, localT);
-    }
-  }
-  return stops[stops.length - 1].color;
-}
-
 export default function ExplodedView() {
   const sectionRef = useRef(null);
   const [progress, setProgress] = useState(0);
@@ -72,16 +53,18 @@ export default function ExplodedView() {
     };
   }, []);
 
-  const explosionProgress = Math.min(progress / 0.15, 1);
-  const layerTranslates = LAYERS.map((layer) => layer.yOffset * explosionProgress);
+  const expansionProgress = Math.max(0, Math.min((progress - 0.05) / 0.12, 1));
+  const collapseProgress = Math.max(0, Math.min((progress - 0.89) / 0.08, 1));
+  const effectiveExpansion = expansionProgress * (1 - collapseProgress);
+  const layerTranslates = LAYERS.map((layer) => layer.yOffset * effectiveExpansion);
 
   let activeIndex = -1;
-  if (progress >= 0.15) {
+  if (progress >= 0.17 && progress < 0.89) {
     if (progress < 0.29) activeIndex = 0;
-    else if (progress < 0.43) activeIndex = 1;
-    else if (progress < 0.57) activeIndex = 2;
-    else if (progress < 0.71) activeIndex = 3;
-    else if (progress < 0.85) activeIndex = 4;
+    else if (progress < 0.41) activeIndex = 1;
+    else if (progress < 0.53) activeIndex = 2;
+    else if (progress < 0.65) activeIndex = 3;
+    else if (progress < 0.77) activeIndex = 4;
     else activeIndex = 5;
   }
 
@@ -115,7 +98,7 @@ export default function ExplodedView() {
     { at: 0.00, color: '#FFFFFF' },
     { at: 0.08, color: '#FFFFFF' },
     { at: 0.18, color: '#0A0A0B' },
-    { at: 0.88, color: '#0A0A0B' },
+    { at: 0.96, color: '#0A0A0B' },
     { at: 1.00, color: '#FFFFFF' },
   ]);
 
@@ -123,12 +106,14 @@ export default function ExplodedView() {
     { at: 0.00, color: '#0A0A0B' },
     { at: 0.08, color: '#0A0A0B' },
     { at: 0.18, color: '#FFFFFF' },
-    { at: 0.88, color: '#FFFFFF' },
+    { at: 0.96, color: '#FFFFFF' },
     { at: 1.00, color: '#0A0A0B' },
   ]);
 
-  const cardBgAlpha = progress >= 0.18 && progress <= 0.88 ? 0.05 : 0.95;
-  const cardBorderAlpha = progress >= 0.18 && progress <= 0.88 ? 0.10 : 0.60;
+  const cardBgAlpha = 0.05;
+  const cardBorderAlpha = 0.10;
+
+  const headerOpacity = Math.max(0, 1 - progress / 0.05);
 
   return (
     <section
@@ -166,19 +151,71 @@ export default function ExplodedView() {
             alignItems: 'center',
           }}
         >
+          {/* LEFT column: header + card overlapped, both anchored to vertical center */}
           <div
             style={{
               position: 'relative',
-              height: '400px',
+              height: '500px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: 0,
+                right: 0,
+                transform: 'translateY(-50%)',
+                opacity: headerOpacity,
+                transition: 'opacity 200ms ease',
+                textAlign: 'left',
+                color: textColor,
+                pointerEvents: headerOpacity > 0 ? 'auto' : 'none',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: '0.75rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.3em',
+                  opacity: 0.4,
+                  marginBottom: '1rem',
+                }}
+              >
+                The Technology
+              </div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                  lineHeight: 1.05,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                Six layers,{' '}
+                <span style={{ fontStyle: 'italic', fontWeight: 700 }}>one thin insole.</span>
+              </div>
+              <div
+                style={{
+                  fontSize: '1rem',
+                  opacity: 0.65,
+                  marginTop: '1rem',
+                  maxWidth: '28rem',
+                }}
+              >
+                A pressure sensor array, BLE radio, and lithium-polymer battery — all under 3 mm of medical-grade silicone.
+              </div>
+            </div>
+
             {displayedIndex >= 0 && (
               <div
                 style={{
-                  transform: `translateY(${cardTranslateY})`,
+                  position: 'absolute',
+                  top: '50%',
+                  left: 0,
+                  transform: `translateY(calc(-50% + ${cardTranslateY}))`,
                   opacity: cardOpacity,
                   transition: cardUseTransition
                     ? 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease, background-color 200ms linear, border-color 200ms linear'
@@ -241,6 +278,7 @@ export default function ExplodedView() {
             )}
           </div>
 
+          {/* RIGHT column: insole stack only */}
           <div
             style={{
               position: 'relative',
@@ -248,17 +286,21 @@ export default function ExplodedView() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              transform: `translateY(${-180 * effectiveExpansion}px)`,
+              transition: 'transform 100ms linear',
             }}
           >
-            {LAYERS.map((layer, i) => (
-              <LayerSilhouette
-                key={layer.id}
-                layer={layer}
-                translateY={layerTranslates[i]}
-                isActive={activeIndex === i}
-                anyActive={activeIndex >= 0}
-              />
-            ))}
+            <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+              {LAYERS.map((layer, i) => (
+                <LayerSilhouette
+                  key={layer.id}
+                  layer={layer}
+                  translateY={layerTranslates[i]}
+                  isActive={activeIndex === i}
+                  anyActive={activeIndex >= 0}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -274,7 +316,8 @@ function LayerSilhouette({ layer, translateY, isActive, anyActive }) {
       style={{
         position: 'absolute',
         left: '50%',
-        transform: `translateX(-50%) translateY(${translateY}px)`,
+        top: '50%',
+        transform: `translate(-50%, calc(-50% + ${translateY}px))`,
       }}
     >
       <div
@@ -287,6 +330,34 @@ function LayerSilhouette({ layer, translateY, isActive, anyActive }) {
       </div>
     </div>
   );
+}
+
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  return {
+    r: parseInt(h.slice(0, 2), 16),
+    g: parseInt(h.slice(2, 4), 16),
+    b: parseInt(h.slice(4, 6), 16),
+  };
+}
+
+function interpolateColor(progress, stops) {
+  if (progress <= stops[0].at) return stops[0].color;
+  if (progress >= stops[stops.length - 1].at) return stops[stops.length - 1].color;
+  for (let i = 0; i < stops.length - 1; i++) {
+    const a = stops[i];
+    const b = stops[i + 1];
+    if (progress >= a.at && progress <= b.at) {
+      const t = (progress - a.at) / (b.at - a.at);
+      const ca = hexToRgb(a.color);
+      const cb = hexToRgb(b.color);
+      const r = Math.round(ca.r + (cb.r - ca.r) * t);
+      const g = Math.round(ca.g + (cb.g - ca.g) * t);
+      const bl = Math.round(ca.b + (cb.b - ca.b) * t);
+      return `rgb(${r}, ${g}, ${bl})`;
+    }
+  }
+  return stops[stops.length - 1].color;
 }
 
 function InsoleSVG({ fill, stroke }) {
