@@ -1,23 +1,20 @@
 'use client';
 
 const LOGOS = [
-  '/logos/cal.png',
-  '/logos/ucberkeley.svg.png',
-  '/logos/ucdavis.png',
-  '/logos/davis.png',
-  '/logos/purdue.png',
-  '/logos/nhs.png',
-  '/logos/ensigngroup.png',
+  { src: '/logos/cal.png', scale: 1.0 },
+  { src: '/logos/purdue.png', scale: 1.0 },
+  { src: '/logos/ucberkeley.svg.png', scale: 1.0 },
+  { src: '/logos/ensigngroup.png', scale: 1.15 },
+  { src: '/logos/davis.png', scale: 1.0 },
+  { src: '/logos/nhs.png', scale: 1.0 },
+  { src: '/logos/ucdavis.png', scale: 1.0 },
 ];
 
 export default function CredibilityBar() {
   return (
     <section
-      className="relative border-t border-ink/10 overflow-hidden py-8 sm:py-12 px-4 pb-0"
-      style={{
-        background:
-          'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 55%, #0A0A0B 100%)',
-      }}
+      className="relative bg-white border-t border-ink/10 overflow-hidden py-8 sm:py-12 px-4 pb-0"
+      style={{ backgroundColor: '#FFFFFF' }}
     >
       <div className="text-center mb-6">
         <span className="text-sm uppercase tracking-wider text-ink/60">
@@ -30,15 +27,15 @@ export default function CredibilityBar() {
           className="flex animate-marquee"
           style={{ animationDuration: '40s', width: 'fit-content' }}
         >
-          {[...LOGOS, ...LOGOS].map((src, i) => (
+          {[...LOGOS, ...LOGOS].map((logo, i) => (
             <div
               key={i}
               className="shrink-0 transition-transform duration-300 hover:scale-110"
               style={{
-                height: '96px',
+                height: `${96 * logo.scale}px`,
                 width: 'auto',
-                minWidth: '140px',
-                maxWidth: '240px',
+                minWidth: '180px',
+                maxWidth: '320px',
                 marginRight: '96px',
                 display: 'flex',
                 alignItems: 'center',
@@ -47,7 +44,7 @@ export default function CredibilityBar() {
               }}
             >
               <img
-                src={src}
+                src={logo.src}
                 alt=""
                 style={{
                   maxHeight: '100%',
