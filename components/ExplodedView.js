@@ -2,14 +2,56 @@
 
 import { useRef, useState, useEffect } from 'react';
 
+const LAYER_SIZE = 504;
+const COLLAPSED_GAP = 6;
+const EXPANDED_GAP = 80;
+
 const LAYERS = [
-  { id: 1, name: 'Top Liner',      sub: 'Antimicrobial fabric',     desc: 'Skin-side cover that wicks moisture and resists bacteria.',       fill: '#E2E8F0', stroke: '#94A3B8', yOffset: 0   },
-  { id: 2, name: 'Pressure Array', sub: '256 capacitive points',    desc: 'The core sensing layer. 256 capacitive sensors map every step.', fill: '#FED7AA', stroke: '#F97316', yOffset: 40  },
-  { id: 3, name: 'Flex PCB',       sub: 'Polyimide circuit',        desc: 'Routes sensor signals through a thin, flexible printed circuit.', fill: '#BBF7D0', stroke: '#16A34A', yOffset: 90  },
-  { id: 4, name: 'BLE Module',     sub: 'Bluetooth Low Energy 5.3', desc: 'Streams weight-bearing data to the companion app in real time.', fill: '#BFDBFE', stroke: '#2563EB', yOffset: 150 },
-  { id: 5, name: 'Battery',        sub: '120 mAh LiPo',             desc: 'Three full days of continuous use on a single charge.',          fill: '#FBCFE8', stroke: '#DB2777', yOffset: 220 },
-  { id: 6, name: 'Base Footbed',   sub: 'Medical-grade silicone',   desc: 'A thin silicone base. Slides into any standard shoe.',           fill: '#E5E7EB', stroke: '#6B7280', yOffset: 300 },
+  {
+    id: 1,
+    name: 'Top Liner',
+    sub: 'Antimicrobial fabric',
+    desc: 'Skin-side cover that wicks moisture and resists bacteria.',
+    src: '/insole%20mockup/layer-1-top_liner.png',
+  },
+  {
+    id: 2,
+    name: 'Pressure Array',
+    sub: '256 capacitive points',
+    desc: 'The core sensing layer. 256 capacitive sensors map every step.',
+    src: '/insole%20mockup/layer-2-pressure_array.png',
+  },
+  {
+    id: 3,
+    name: 'Flex PCB',
+    sub: 'Polyimide circuit',
+    desc: 'Routes sensor signals through a thin, flexible printed circuit.',
+    src: '/insole%20mockup/layer-3-flex_pcb.png',
+  },
+  {
+    id: 4,
+    name: 'Battery',
+    sub: '120 mAh LiPo',
+    desc: 'Three full days of continuous use on a single charge.',
+    src: '/insole%20mockup/layer-4-battery.png',
+  },
+  {
+    id: 5,
+    name: 'BLE Module',
+    sub: 'Bluetooth Low Energy 5.3',
+    desc: 'Streams weight-bearing data to the companion app in real time.',
+    src: '/insole%20mockup/layer-5-ble_module.png',
+  },
+  {
+    id: 6,
+    name: 'Base Footbed',
+    sub: 'Medical-grade carbon fiber',
+    desc: 'A thin carbon-fiber base. Slides into any standard shoe.',
+    src: '/insole%20mockup/layer-6-base_footbed.png',
+  },
 ];
+
+const CENTER_INDEX = (LAYERS.length - 1) / 2;
 
 export default function ExplodedView() {
   const sectionRef = useRef(null);
@@ -56,7 +98,12 @@ export default function ExplodedView() {
   const expansionProgress = Math.max(0, Math.min((progress - 0.05) / 0.12, 1));
   const collapseProgress = Math.max(0, Math.min((progress - 0.89) / 0.08, 1));
   const effectiveExpansion = expansionProgress * (1 - collapseProgress);
-  const layerTranslates = LAYERS.map((layer) => layer.yOffset * effectiveExpansion);
+
+  const layerTranslates = LAYERS.map((_, i) => {
+    const collapsedY = (i - CENTER_INDEX) * COLLAPSED_GAP;
+    const expandedY = (i - CENTER_INDEX) * EXPANDED_GAP;
+    return collapsedY + (expandedY - collapsedY) * effectiveExpansion;
+  });
 
   let activeIndex = -1;
   if (progress >= 0.17 && progress < 0.89) {
@@ -286,11 +333,9 @@ export default function ExplodedView() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transform: `translateY(${-180 * effectiveExpansion}px)`,
-              transition: 'transform 100ms linear',
             }}
           >
-            <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+            <div style={{ position: 'relative', width: LAYER_SIZE, height: LAYER_SIZE }}>
               {LAYERS.map((layer, i) => (
                 <LayerSilhouette
                   key={layer.id}
@@ -298,6 +343,7 @@ export default function ExplodedView() {
                   translateY={layerTranslates[i]}
                   isActive={activeIndex === i}
                   anyActive={activeIndex >= 0}
+                  zIndex={LAYERS.length - i}
                 />
               ))}
             </div>
@@ -308,8 +354,8 @@ export default function ExplodedView() {
   );
 }
 
-function LayerSilhouette({ layer, translateY, isActive, anyActive }) {
-  const opacity = anyActive ? (isActive ? 1 : 0.25) : 1;
+function LayerSilhouette({ layer, translateY, isActive, anyActive, zIndex }) {
+  const opacity = anyActive ? (isActive ? 1 : 0.3) : 1;
 
   return (
     <div
@@ -318,16 +364,28 @@ function LayerSilhouette({ layer, translateY, isActive, anyActive }) {
         left: '50%',
         top: '50%',
         transform: `translate(-50%, calc(-50% + ${translateY}px))`,
+        transition: 'transform 100ms linear',
+        zIndex,
+        width: LAYER_SIZE,
+        height: LAYER_SIZE,
       }}
     >
-      <div
+      <img
+        src={layer.src}
+        alt={layer.name}
+        draggable={false}
         style={{
+          width: '100%',
+          height: '100%',
+          display: 'block',
+          objectFit: 'contain',
           opacity,
           transition: 'opacity 300ms ease',
+          userSelect: 'none',
+          pointerEvents: 'none',
+          filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.35))',
         }}
-      >
-        <InsoleSVG fill={layer.fill} stroke={layer.stroke} />
-      </div>
+      />
     </div>
   );
 }
@@ -360,21 +418,3 @@ function interpolateColor(progress, stops) {
   return stops[stops.length - 1].color;
 }
 
-function InsoleSVG({ fill, stroke }) {
-  return (
-    <svg width="280" height="100" viewBox="0 0 220 80" fill="none">
-      <path
-        d="M 25 40 C 25 15, 50 8, 95 8 C 145 8, 175 12, 195 22 C 215 32, 215 48, 195 58 C 175 68, 145 72, 95 72 C 50 72, 25 65, 25 40 Z"
-        fill={fill}
-        stroke={stroke}
-        strokeWidth="1.5"
-      />
-      <circle cx="60" cy="40" r="1.5" fill={stroke} opacity="0.5" />
-      <circle cx="90" cy="30" r="1.5" fill={stroke} opacity="0.5" />
-      <circle cx="90" cy="50" r="1.5" fill={stroke} opacity="0.5" />
-      <circle cx="130" cy="35" r="1.5" fill={stroke} opacity="0.5" />
-      <circle cx="130" cy="50" r="1.5" fill={stroke} opacity="0.5" />
-      <circle cx="170" cy="40" r="1.5" fill={stroke} opacity="0.5" />
-    </svg>
-  );
-}
