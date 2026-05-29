@@ -19,14 +19,38 @@ export default function PreOrder() {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('patient');
   const [size, setSize] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [state, setState] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  function handleSubmit(e) {
+  const submitted = state === 'success';
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    // TODO: wire this up to your backend / form service.
-    // For now we just simulate success.
-    console.log('Pre-order:', { name, email, role, size });
-    setSubmitted(true);
+    if (state === 'loading' || state === 'success') return;
+
+    if (!name.trim() || !size.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorMsg('Please fill in name, valid email, and shoe size.');
+      setState('error');
+      return;
+    }
+
+    setState('loading');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/reserve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, size, role }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Reservation failed');
+      }
+      setState('success');
+    } catch (err) {
+      setErrorMsg(err.message || 'Something went wrong. Try again.');
+      setState('error');
+    }
   }
 
   return (
@@ -158,10 +182,15 @@ export default function PreOrder() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full px-6 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all"
+                disabled={state === 'loading'}
+                className="w-full px-6 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-wait disabled:hover:translate-y-0"
               >
-                Reserve my Therapeuo
+                {state === 'loading' ? 'Reserving…' : 'Reserve my Therapeuo'}
               </button>
+
+              {state === 'error' && errorMsg && (
+                <p className="text-center text-xs text-red-600">{errorMsg}</p>
+              )}
 
               <p className="text-center text-xs text-ink/45">
                 We'll only email you about your pre-order. No spam.
