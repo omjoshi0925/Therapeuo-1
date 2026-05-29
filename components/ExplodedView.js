@@ -11,21 +11,21 @@ const LAYERS = [
     id: 1,
     name: 'Top Liner',
     sub: 'Antimicrobial fabric',
-    desc: 'Skin-side cover that wicks moisture and resists bacteria.',
+    desc: 'Skin-side lining with medical grade silicone that wicks moisture and resists bacteria',
     src: '/insole%20mockup/layer-1-top_liner.png',
   },
   {
     id: 2,
     name: 'Pressure Array',
-    sub: '256 capacitive points',
-    desc: 'The core sensing layer. 256 capacitive sensors map every step.',
+    sub: 'Tri-point Sensor Integration',
+    desc: 'The core sensing layer. 3 distinct force resistive sensors maps every step',
     src: '/insole%20mockup/layer-2-pressure_array.png',
   },
   {
     id: 3,
-    name: 'Flex PCB',
-    sub: 'Polyimide circuit',
-    desc: 'Routes sensor signals through a thin, flexible printed circuit.',
+    name: 'Comfort Core',
+    sub: 'Ergonomic cushioning',
+    desc: 'Absorbs impact and conforms naturally to the foot, with a soft, flexible material engineered for all-day comfort',
     src: '/insole%20mockup/layer-3-flex_pcb.png',
   },
   {
@@ -37,9 +37,9 @@ const LAYERS = [
   },
   {
     id: 5,
-    name: 'BLE Module',
-    sub: 'Bluetooth Low Energy 5.3',
-    desc: 'Streams weight-bearing data to the companion app in real time.',
+    name: 'Flex PCB & BLE Module',
+    sub: 'Polyimide circuit (with BLE 5.3)',
+    desc: 'Routes sensor signals & streams weight-bearing data to companion app & Apple Health accessories.',
     src: '/insole%20mockup/layer-5-ble_module.png',
   },
   {
@@ -252,7 +252,7 @@ export default function ExplodedView() {
                   maxWidth: '28rem',
                 }}
               >
-                A pressure sensor array, BLE radio, and lithium-polymer battery — all under 3 mm of medical-grade silicone.
+                A pressure sensory array, lithium-polymer battery, BLE radio – all wrapped under 3 milimeters of medical-grade silicone & carbon fiber.
               </div>
             </div>
 

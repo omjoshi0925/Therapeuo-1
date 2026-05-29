@@ -61,18 +61,14 @@ export default function PreOrder() {
     >
       <div className="max-w-2xl mx-auto text-center">
         <div className="text-xs uppercase tracking-[0.3em] text-ink/40 mb-4">
-          Pre-order now
+          reserve now
         </div>
         <h2
           className="font-serif text-ink leading-[1.05] tracking-tight"
           style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
         >
-          Reserve your <span className="italic">Therapeuo.</span>
+          Reserve your <span className="italic">insole.</span>
         </h2>
-        <p className="mt-6 max-w-lg mx-auto text-base sm:text-lg text-ink/65">
-          $50 deposit reserves your place in the first production batch.
-          Fully refundable. Shipping Spring 2026.
-        </p>
 
         {/* Form card */}
         <motion.div
@@ -185,7 +181,7 @@ export default function PreOrder() {
                 disabled={state === 'loading'}
                 className="w-full px-6 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-wait disabled:hover:translate-y-0"
               >
-                {state === 'loading' ? 'Reserving…' : 'Reserve my Therapeuo'}
+                {state === 'loading' ? 'Reserving…' : 'Reserve my insole'}
               </button>
 
               {state === 'error' && errorMsg && (

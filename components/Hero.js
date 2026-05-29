@@ -41,9 +41,9 @@ export default function Hero() {
           className="mt-10 max-w-xl text-base sm:text-lg text-ink/70 leading-relaxed"
         >
           Therapeuo is a smart insole that gives physical therapy patients real-time
-          weight-bearing feedback — and gives clinicians peace of mind.
+          weight-bearing feedback — and fast-forwards the healing process.
           <br />
-          <span className="text-ink/55">No guesswork. No delay.</span>
+          <span className="text-ink/55">Dynamic Sensor-Fusion Technology</span>
         </motion.p>
 
         <motion.div
@@ -58,7 +58,7 @@ export default function Hero() {
             }}
             className="group inline-flex items-center justify-center px-10 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 pointer-events-auto"
           >
-            Preorder
+            Reserve
             <svg
               className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
               viewBox="0 0 20 20"
@@ -78,7 +78,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 1 }}
           className="mt-6 text-xs uppercase tracking-[0.2em] text-ink/40"
         >
-          Shipping Spring 2026 · Limited first batch
+          Shipping Fall 2026. Limited First Batch
         </motion.p>
       </div>
     </section>

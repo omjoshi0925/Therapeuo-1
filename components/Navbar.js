@@ -119,11 +119,11 @@ export default function Navbar() {
           </button>
 
           <a
-            href="https://www.youtube.com/@nithinaru"
+            href="https://youtu.be/kmYGtSsVqA0"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm hover:opacity-100 transition-opacity"
-            style={{ ...textStyle, opacity: 0.8 }}
+            className="inline-flex items-center gap-1.5 text-sm font-medium hover:opacity-100 transition-opacity"
+            style={{ ...textStyle, color: '#E5484D', opacity: 0.95 }}
           >
             Learn More
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -136,18 +136,19 @@ export default function Navbar() {
       </nav>
 
       <div className="fixed top-6 right-6 z-50">
-        <div
-          className="flex items-center px-4"
+        <button
+          onClick={scrollToPreorder}
+          aria-label="Reserve"
+          className="group flex items-center px-4 cursor-pointer appearance-none m-0"
           style={pillStyle}
         >
-          <button
-            onClick={scrollToPreorder}
-            className="text-sm hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-none p-0"
+          <span
+            className="text-sm transition-opacity group-hover:opacity-100"
             style={{ ...textStyle, opacity: 0.8 }}
           >
-            Preorder
-          </button>
-        </div>
+            Reserve
+          </span>
+        </button>
       </div>
     </>
   );

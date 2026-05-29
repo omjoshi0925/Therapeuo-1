@@ -16,7 +16,7 @@ export default function Testimonial() {
           transition={{ duration: 0.6 }}
           className="font-serif text-2xl sm:text-3xl text-ink leading-relaxed italic"
         >
-          "[Quote placeholder — replace with real testimonial.]"
+          “A novel solution that accelerates physical healing process by 2x”
         </motion.blockquote>
 
         <motion.div
@@ -45,7 +45,7 @@ export default function Testimonial() {
           {/* Attribution */}
           <div className="text-left">
             <div className="text-sm font-medium text-ink">
-              — [Name], [Role/Title]
+              — Gauri Joshi, Therapy Resource @ The Ensign Group
             </div>
           </div>
         </motion.div>
