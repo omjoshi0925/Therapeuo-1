@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const LAYER_SIZE = 504;
 const COLLAPSED_GAP = 6;
@@ -233,17 +234,24 @@ export default function ExplodedView() {
               >
                 The Technology
               </div>
-              <div
+              <h2
                 style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: 'clamp(2rem, 4vw, 3.5rem)',
                   lineHeight: 1.05,
                   letterSpacing: '-0.02em',
+                  margin: 0,
+                  fontWeight: 'normal',
                 }}
               >
-                Six layers,{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 700 }}>one thin insole.</span>
-              </div>
+                <span className="sr-only">
+                  Inside the Therapeuo smart insole — six engineered layers.{' '}
+                </span>
+                <span aria-hidden="true">
+                  Six layers,{' '}
+                  <span style={{ fontStyle: 'italic', fontWeight: 700 }}>one thin insole.</span>
+                </span>
+              </h2>
               <div
                 style={{
                   fontSize: '1rem',
@@ -290,16 +298,18 @@ export default function ExplodedView() {
                 >
                   0{LAYERS[displayedIndex].id} / 06
                 </div>
-                <div
+                <h3
                   style={{
                     marginTop: '0.75rem',
+                    marginBottom: 0,
                     fontFamily: 'var(--font-serif)',
                     fontSize: '1.875rem',
+                    fontWeight: 'normal',
                     color: textColor,
                   }}
                 >
                   {LAYERS[displayedIndex].name}
-                </div>
+                </h3>
                 <div
                   style={{
                     marginTop: '0.25rem',
@@ -370,10 +380,14 @@ function LayerSilhouette({ layer, translateY, isActive, anyActive, zIndex }) {
         height: LAYER_SIZE,
       }}
     >
-      <img
+      <Image
         src={layer.src}
-        alt={layer.name}
+        alt={`Therapeuo smart insole — ${layer.name} (${layer.sub})`}
+        width={LAYER_SIZE}
+        height={LAYER_SIZE}
+        priority={layer.id === 1}
         draggable={false}
+        sizes="(max-width: 768px) 60vw, 504px"
         style={{
           width: '100%',
           height: '100%',

@@ -67,7 +67,12 @@ export default function PreOrder() {
           className="font-serif text-ink leading-[1.05] tracking-tight"
           style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
         >
-          Reserve your <span className="italic">insole.</span>
+          <span className="sr-only">
+            Pre-order the Therapeuo smart insole for physical therapy.{' '}
+          </span>
+          <span aria-hidden="true">
+            Reserve your <span className="italic">insole.</span>
+          </span>
         </h2>
 
         {/* Form card */}

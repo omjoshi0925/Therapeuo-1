@@ -29,9 +29,14 @@ export default function Hero() {
             fontSize: 'clamp(2.75rem, 9vw, 7.5rem)',
           }}
         >
-          Every step,
-          <br />
-          <span className="italic">measured.</span>
+          <span className="sr-only">
+            Therapeuo — World&apos;s First Smart Insole for Physical Therapy.{' '}
+          </span>
+          <span aria-hidden="true">
+            Every step,
+            <br />
+            <span className="italic">measured.</span>
+          </span>
         </motion.h1>
 
         <motion.p

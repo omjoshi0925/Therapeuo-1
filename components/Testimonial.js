@@ -7,8 +7,11 @@ import { motion } from 'framer-motion';
  */
 export default function Testimonial() {
   return (
-    <section className="pt-48 sm:pt-64 pb-24 sm:pb-32 px-4">
+    <section className="pt-48 sm:pt-64 pb-24 sm:pb-32 px-4" aria-labelledby="testimonial-heading">
       <div className="max-w-2xl mx-auto text-center">
+        <h2 id="testimonial-heading" className="sr-only">
+          What clinicians say about the Therapeuo smart insole
+        </h2>
         <motion.blockquote
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
