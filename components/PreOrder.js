@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * Pre-order form.
@@ -21,6 +21,7 @@ export default function PreOrder() {
   const [size, setSize] = useState('');
   const [state, setState] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
   const submitted = state === 'success';
 
@@ -47,6 +48,8 @@ export default function PreOrder() {
         throw new Error(data.error || 'Reservation failed');
       }
       setState('success');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 12000);
     } catch (err) {
       setErrorMsg(err.message || 'Something went wrong. Try again.');
       setState('error');
@@ -83,9 +86,16 @@ export default function PreOrder() {
               <div className="font-serif text-3xl text-ink">
                 Thanks <span className="italic">{name}</span>, you're on the list.
               </div>
-              <p className="mt-3 text-ink/65">
-                We'll email <span className="font-medium text-ink">{email}</span> when
-                deposits open.
+              <p className="mt-4 text-ink/65 leading-relaxed">
+                A confirmation is on its way to{' '}
+                <span className="font-medium text-ink">{email}</span> from{' '}
+                <span className="font-medium text-ink">reservations@therapeuo.xyz</span>.
+                If you don't see it shortly, check your spam folder.
+              </p>
+              <p className="mt-3 text-ink/65 leading-relaxed">
+                Our team will follow up from{' '}
+                <span className="font-medium text-ink">contact@therapeuo.xyz</span>{' '}
+                within 24–48 hours.
               </p>
             </div>
           ) : (
@@ -195,6 +205,40 @@ export default function PreOrder() {
           )}
         </motion.div>
       </div>
+
+      {/* Confirmation popup */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="fixed bottom-5 right-5 left-5 sm:left-auto z-50 max-w-sm"
+            role="status"
+            aria-live="polite"
+          >
+            <div className="relative rounded-2xl bg-ink text-white shadow-[0_16px_40px_-8px_rgba(0,0,0,0.45)] px-5 py-4 pr-9 text-left">
+              <button
+                type="button"
+                onClick={() => setShowToast(false)}
+                aria-label="Dismiss"
+                className="absolute top-3 right-3 text-white/50 hover:text-white transition-colors text-lg leading-none"
+              >
+                ×
+              </button>
+              <div className="text-sm font-medium mb-1">Reservation received</div>
+              <p className="text-sm text-white/70 leading-relaxed">
+                You'll get a confirmation from{' '}
+                <span className="text-white">reservations@therapeuo.xyz</span>.
+                Our team will reach out from{' '}
+                <span className="text-white">contact@therapeuo.xyz</span> within
+                24–48 hours.
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
