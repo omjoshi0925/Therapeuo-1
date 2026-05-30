@@ -65,24 +65,24 @@ export default function ContactPage() {
               <div className="text-xs uppercase tracking-wider text-ink/40 mb-2">
                 Email
               </div>
-              <a href="mailto:hello@therapeuo.xyz" className="text-ink hover:underline">
-                hello@therapeuo.xyz
+              <a href="mailto:contact@therapeuo.xyz" className="text-ink hover:underline">
+                contact@therapeuo.xyz
               </a>
             </div>
             <div>
               <div className="text-xs uppercase tracking-wider text-ink/40 mb-2">
                 Clinical
               </div>
-              <a href="mailto:clinical@therapeuo.xyz" className="text-ink hover:underline">
-                clinical@therapeuo.xyz
+              <a href="mailto:contact@therapeuo.xyz" className="text-ink hover:underline">
+                contact@therapeuo.xyz
               </a>
             </div>
             <div>
               <div className="text-xs uppercase tracking-wider text-ink/40 mb-2">
                 Press
               </div>
-              <a href="mailto:press@therapeuo.xyz" className="text-ink hover:underline">
-                press@therapeuo.xyz
+              <a href="mailto:contact@therapeuo.xyz" className="text-ink hover:underline">
+                contact@therapeuo.xyz
               </a>
             </div>
           </div>

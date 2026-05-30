@@ -1,13 +1,15 @@
 'use client';
 
+import Image from 'next/image';
+
 const LOGOS = [
-  { src: '/logos/cal.png', scale: 1.0 },
-  { src: '/logos/purdue.png', scale: 1.0 },
-  { src: '/logos/ucberkeley.svg.png', scale: 1.0 },
-  { src: '/logos/ensigngroup.png', scale: 1.15 },
-  { src: '/logos/davis.png', scale: 1.0 },
-  { src: '/logos/nhs.png', scale: 1.0 },
-  { src: '/logos/ucdavis.png', scale: 1.0 },
+  { src: '/logos/cal.png', scale: 1.0, alt: 'California Golden Bears (UC Berkeley Athletics) logo' },
+  { src: '/logos/purdue.png', scale: 1.0, alt: 'Purdue University logo' },
+  { src: '/logos/ucberkeley.svg.png', scale: 1.0, alt: 'UC Berkeley logo' },
+  { src: '/logos/ensigngroup.png', scale: 1.15, alt: 'The Ensign Group logo' },
+  { src: '/logos/davis.png', scale: 1.0, alt: 'UC Davis logo' },
+  { src: '/logos/nhs.png', scale: 1.0, alt: 'NHS (UK National Health Service) logo' },
+  { src: '/logos/ucdavis.png', scale: 1.0, alt: 'UC Davis Health logo' },
 ];
 
 export default function CredibilityBar() {
@@ -17,9 +19,12 @@ export default function CredibilityBar() {
       style={{ backgroundColor: '#FFFFFF' }}
     >
       <div className="text-center mb-6">
-        <span className="text-sm uppercase tracking-wider text-ink/60">
-          Designed by:
-        </span>
+        <h2 className="text-sm uppercase tracking-wider text-ink/60 font-normal m-0">
+          <span className="sr-only">
+            Therapeuo smart insole engineered by researchers and clinicians from:{' '}
+          </span>
+          <span aria-hidden="true">Designed by:</span>
+        </h2>
       </div>
 
       <div className="overflow-x-hidden group" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
@@ -43,9 +48,12 @@ export default function CredibilityBar() {
                 padding: '0 1rem',
               }}
             >
-              <img
+              <Image
                 src={logo.src}
-                alt=""
+                alt={logo.alt}
+                width={320}
+                height={96}
+                sizes="(max-width: 768px) 40vw, 320px"
                 style={{
                   maxHeight: '100%',
                   maxWidth: '100%',

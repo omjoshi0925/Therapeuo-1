@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import CredibilityBar from '@/components/CredibilityBar';
 import ExplodedView from '@/components/ExplodedView';
 import PreOrder from '@/components/PreOrder';
+import FAQ from '@/components/FAQ';
 import Testimonial from '@/components/Testimonial';
 import BottomGradient from '@/components/BottomGradient';
 import Footer from '@/components/Footer';
@@ -21,6 +22,7 @@ export default function Home() {
         <CredibilityBar />
         <ExplodedView />
         <PreOrder />
+        <FAQ />
         <BottomGradient>
           <Testimonial />
           <Footer />
