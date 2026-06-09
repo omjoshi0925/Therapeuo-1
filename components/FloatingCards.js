@@ -68,7 +68,7 @@ export default function FloatingCards() {
     <>
       {/* TOP-LEFT — Live percent weight-bearing gauge */}
       <FloatingCard
-        positionClass="top-32 left-4 sm:left-12 lg:left-24"
+        positionClass="hidden sm:block top-32 left-4 sm:left-12 lg:left-24"
         offsetY={-10}
         innerClassName="px-4 py-3 w-56 flex items-center gap-3"
       >
@@ -100,7 +100,7 @@ export default function FloatingCards() {
 
       {/* TOP-RIGHT — Threshold alert */}
       <FloatingCard
-        positionClass="top-44 right-4 sm:right-12 lg:right-24"
+        positionClass="hidden sm:block top-44 right-4 sm:right-12 lg:right-24"
         offsetY={-8}
         innerClassName="px-4 py-3 w-64 flex flex-col"
       >
@@ -115,7 +115,7 @@ export default function FloatingCards() {
 
       {/* BOTTOM-LEFT — Today's session */}
       <FloatingCard
-        positionClass="bottom-40 left-2 sm:left-8 lg:left-20"
+        positionClass="hidden sm:block bottom-40 left-2 sm:left-8 lg:left-20"
         offsetY={-10}
         innerClassName="px-4 py-3 w-60 flex items-center gap-3"
       >
@@ -132,7 +132,7 @@ export default function FloatingCards() {
 
       {/* BOTTOM-RIGHT — Clinician panel */}
       <FloatingCard
-        positionClass="bottom-44 right-2 sm:right-8 lg:right-16"
+        positionClass="hidden sm:block bottom-44 right-2 sm:right-8 lg:right-16"
         offsetY={-8}
         innerClassName="px-4 py-4 w-64 flex flex-col"
       >
@@ -155,5 +155,75 @@ export default function FloatingCards() {
         </div>
       </FloatingCard>
     </>
+  );
+}
+
+export function MobileHeroCards() {
+  const [pct, setPct] = useState(45);
+
+  useEffect(() => {
+    const startTime = Date.now();
+    const cycleDuration = 4500;
+    const animate = () => {
+      const elapsed = (Date.now() - startTime) % cycleDuration;
+      const normalized = elapsed / cycleDuration;
+      const sineWave = Math.sin(normalized * Math.PI * 2);
+      const newPct = 45 + sineWave * 7;
+      setPct(Math.round(newPct));
+      requestAnimationFrame(animate);
+    };
+    const rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
+  const strokeDashoffset = 100 - pct;
+
+  return (
+    <div className="sm:hidden mt-10 grid grid-cols-2 gap-3 w-full max-w-md mx-auto pointer-events-auto">
+      <div className="float-card px-3 py-3 flex items-center gap-2">
+        <div className="relative w-9 h-9 shrink-0">
+          <svg viewBox="0 0 40 40" className="w-9 h-9 -rotate-90">
+            <circle cx="20" cy="20" r="16" fill="none" stroke="#E5E7EB" strokeWidth="4" />
+            <circle
+              cx="20"
+              cy="20"
+              r="16"
+              fill="none"
+              stroke="#10B981"
+              strokeWidth="4"
+              strokeDasharray="100"
+              strokeDashoffset={strokeDashoffset}
+              strokeLinecap="round"
+              style={{ transition: 'stroke-dashoffset 0.5s ease' }}
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center text-[9px] font-semibold">
+            {pct}%
+          </div>
+        </div>
+        <div className="text-left min-w-0">
+          <div className="text-[9px] uppercase tracking-wider text-ink/50">Left foot</div>
+          <div className="text-xs font-medium text-ink leading-tight">{pct}% body weight</div>
+        </div>
+      </div>
+
+      <div className="float-card px-3 py-3 flex flex-col">
+        <div className="text-xs font-semibold text-ink">🩺 Clinician</div>
+        <div className="mt-2 space-y-1 text-[10px]">
+          <div className="flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-emerald-500 shrink-0" />
+            <span className="text-ink/70 truncate">Limit 50 lbs</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0" />
+            <span className="text-ink/70 truncate">J. Rivera · wk 3</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-amber-500 shrink-0" />
+            <span className="text-ink/70 truncate">Adherence 87%</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

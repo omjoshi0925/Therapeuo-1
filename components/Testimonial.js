@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
  */
 export default function Testimonial() {
   return (
-    <section className="pt-48 sm:pt-64 pb-24 sm:pb-32 px-4" aria-labelledby="testimonial-heading">
+    <section className="pt-32 sm:pt-64 pb-20 sm:pb-32 px-4" aria-labelledby="testimonial-heading">
       <div className="max-w-2xl mx-auto text-center">
         <h2 id="testimonial-heading" className="sr-only">
           What clinicians say about the Therapeuo smart insole
@@ -17,7 +17,7 @@ export default function Testimonial() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="font-serif text-2xl sm:text-3xl text-ink leading-relaxed italic"
+          className="font-serif text-xl sm:text-3xl text-ink leading-relaxed italic"
         >
           “A novel solution that accelerates physical healing process by 2x”
         </motion.blockquote>
@@ -47,7 +47,7 @@ export default function Testimonial() {
 
           {/* Attribution */}
           <div className="text-left">
-            <div className="text-sm font-medium text-ink">
+            <div className="text-xs sm:text-sm font-medium text-ink">
               — Gauri Joshi, Therapy Resource @ The Ensign Group
             </div>
           </div>

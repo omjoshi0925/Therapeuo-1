@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Navbar from './Navbar';
-import FloatingCards from './FloatingCards';
+import FloatingCards, { MobileHeroCards } from './FloatingCards';
 
 /**
  * Hero — mirrors Dia's editorial layout:
@@ -14,19 +14,20 @@ import FloatingCards from './FloatingCards';
  */
 export default function Hero() {
   return (
-    <section className="relative min-h-screen pt-24 pb-16 px-4 overflow-hidden">
+    <section className="relative min-h-screen pt-20 sm:pt-24 pb-16 px-4 overflow-hidden">
       <Navbar />
       <FloatingCards />
 
       {/* Centered editorial content */}
-      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center justify-center text-center min-h-[80vh] mt-12 pointer-events-none">
+      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center justify-center text-center min-h-[75vh] sm:min-h-[80vh] mt-6 sm:mt-12 pointer-events-none">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: 'easeOut' }}
-          className="font-serif text-ink leading-[0.95] tracking-tight"
+          className="font-serif text-ink leading-[0.95]"
           style={{
-            fontSize: 'clamp(2.75rem, 9vw, 7.5rem)',
+            fontSize: 'clamp(2rem, 9vw, 7.5rem)',
+            letterSpacing: '-0.03em',
           }}
         >
           <span className="sr-only">
@@ -43,7 +44,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
-          className="mt-10 max-w-xl text-base sm:text-lg text-ink/70 leading-relaxed"
+          className="mt-6 sm:mt-10 max-w-xl text-sm sm:text-lg text-ink/70 leading-relaxed px-2"
         >
           Therapeuo is a smart insole that gives physical therapy patients real-time
           weight-bearing feedback — and fast-forwards the healing process.
@@ -55,13 +56,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-10"
+          className="mt-8 sm:mt-10"
         >
           <button
             onClick={() => {
               document.getElementById('preorder')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="group inline-flex items-center justify-center px-10 py-4 bg-ink text-white rounded-full text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 pointer-events-auto"
+            className="group inline-flex items-center justify-center px-8 sm:px-10 py-3.5 sm:py-4 bg-ink text-white rounded-full text-sm sm:text-base font-medium shadow-[0_8px_24px_-4px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 pointer-events-auto"
           >
             Reserve
             <svg
@@ -81,10 +82,12 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
-          className="mt-6 text-xs uppercase tracking-[0.2em] text-ink/40"
+          className="mt-6 text-[10px] sm:text-xs uppercase tracking-[0.2em] text-ink/40 px-2"
         >
           Shipping Fall 2026. Limited First Batch
         </motion.p>
+
+        <MobileHeroCards />
       </div>
     </section>
   );

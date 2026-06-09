@@ -27,7 +27,7 @@ export default function CredibilityBar() {
         </h2>
       </div>
 
-      <div className="overflow-x-hidden group" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+      <div className="overflow-x-hidden group py-6 sm:py-10">
         <div
           className="flex animate-marquee"
           style={{ animationDuration: '40s', width: 'fit-content' }}
@@ -35,17 +35,15 @@ export default function CredibilityBar() {
           {[...LOGOS, ...LOGOS].map((logo, i) => (
             <div
               key={i}
-              className="shrink-0 transition-transform duration-300 hover:scale-110"
+              className="shrink-0 transition-transform duration-300 hover:scale-110 mr-12 sm:mr-24 px-2 sm:px-4"
               style={{
-                height: `${96 * logo.scale}px`,
+                height: `clamp(${56 * logo.scale}px, 10vw, ${96 * logo.scale}px)`,
                 width: 'auto',
-                minWidth: '180px',
+                minWidth: '110px',
                 maxWidth: '320px',
-                marginRight: '96px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '0 1rem',
               }}
             >
               <Image
@@ -53,7 +51,7 @@ export default function CredibilityBar() {
                 alt={logo.alt}
                 width={320}
                 height={96}
-                sizes="(max-width: 768px) 40vw, 320px"
+                sizes="(max-width: 768px) 30vw, 320px"
                 style={{
                   maxHeight: '100%',
                   maxWidth: '100%',

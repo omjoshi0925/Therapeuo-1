@@ -53,7 +53,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="relative bg-white pt-24 sm:pt-32 pb-24 sm:pb-32 px-4"
+      className="relative bg-white pt-16 sm:pt-32 pb-16 sm:pb-32 px-4"
       aria-labelledby="faq-heading"
       style={{ backgroundColor: '#FFFFFF' }}
     >
@@ -91,9 +91,9 @@ export default function FAQ() {
                   onClick={() => setOpenIndex(open ? -1 : i)}
                   aria-expanded={open}
                   aria-controls={`faq-panel-${i}`}
-                  className="w-full flex items-center justify-between text-left py-6 gap-6 group"
+                  className="w-full flex items-center justify-between text-left py-5 sm:py-6 gap-4 sm:gap-6 group"
                 >
-                  <h3 className="font-serif text-lg sm:text-xl text-ink m-0">
+                  <h3 className="font-serif text-base sm:text-xl text-ink m-0">
                     {item.q}
                   </h3>
                   <span
@@ -113,7 +113,7 @@ export default function FAQ() {
                   id={`faq-panel-${i}`}
                   role="region"
                   hidden={!open}
-                  className="pb-6 pr-10 text-ink/70 text-base leading-relaxed"
+                  className="pb-5 sm:pb-6 pr-4 sm:pr-10 text-ink/70 text-sm sm:text-base leading-relaxed"
                 >
                   {item.a}
                 </div>

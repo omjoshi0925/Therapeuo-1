@@ -69,7 +69,6 @@ export default function Navbar() {
   const textColor = mixHex('#0A0A0B', '#FFFFFF', darkness);
 
   const pillStyle = {
-    height: '56px',
     backgroundColor: pillBg,
     borderColor: pillBorder,
     borderWidth: '1px',
@@ -88,14 +87,14 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+      <nav className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)]">
         <div
-          className="flex items-center gap-6 px-4"
+          className="flex items-center gap-3 sm:gap-6 px-3 sm:px-4 h-12 sm:h-14"
           style={pillStyle}
         >
           <a
             href="mailto:contact@therapeuo.xyz"
-            className="text-sm hover:opacity-100 transition-opacity"
+            className="text-xs sm:text-sm hover:opacity-100 transition-opacity whitespace-nowrap"
             style={{ ...textStyle, opacity: 0.8 }}
           >
             Contact
@@ -109,9 +108,8 @@ export default function Navbar() {
             <img
               src="/logos/Therapeuo.svg"
               alt="Therapeuo"
+              className="h-6 sm:h-8 w-auto"
               style={{
-                height: '32px',
-                width: 'auto',
                 filter: `invert(${darkness})`,
                 transition: 'filter 200ms linear',
               }}
@@ -122,7 +120,7 @@ export default function Navbar() {
             href="https://youtu.be/kmYGtSsVqA0"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium hover:opacity-100 transition-opacity"
+            className="inline-flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm font-medium hover:opacity-100 transition-opacity whitespace-nowrap"
             style={{ ...textStyle, color: '#E5484D', opacity: 0.95 }}
           >
             Learn More
@@ -135,11 +133,11 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div className="fixed top-6 right-6 z-50">
+      <div className="hidden sm:block fixed top-6 right-6 z-50">
         <button
           onClick={scrollToPreorder}
           aria-label="Reserve"
-          className="group flex items-center px-4 cursor-pointer appearance-none m-0"
+          className="group flex items-center px-4 h-14 cursor-pointer appearance-none m-0"
           style={pillStyle}
         >
           <span

@@ -59,7 +59,7 @@ export default function PreOrder() {
   return (
     <section
       id="preorder"
-      className="relative bg-white pt-32 sm:pt-48 pb-32 sm:pb-40 px-4"
+      className="relative bg-white pt-24 sm:pt-48 pb-24 sm:pb-40 px-4"
       style={{ backgroundColor: '#FFFFFF' }}
     >
       <div className="max-w-2xl mx-auto text-center">
@@ -87,8 +87,8 @@ export default function PreOrder() {
           className="mt-12"
         >
           {submitted ? (
-            <div className="float-card px-8 py-12">
-              <div className="font-serif text-3xl text-ink">
+            <div className="float-card px-6 sm:px-8 py-8 sm:py-12">
+              <div className="font-serif text-2xl sm:text-3xl text-ink">
                 Thanks <span className="italic">{name}</span>, you're on the list.
               </div>
               <p className="mt-4 text-ink/65 leading-relaxed">

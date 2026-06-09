@@ -3,9 +3,11 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 
-const LAYER_SIZE = 504;
+const LAYER_SIZE_DESKTOP = 504;
+const LAYER_SIZE_MOBILE = 280;
 const COLLAPSED_GAP = 6;
-const EXPANDED_GAP = 80;
+const EXPANDED_GAP_DESKTOP = 80;
+const EXPANDED_GAP_MOBILE = 44;
 
 const LAYERS = [
   {
@@ -59,6 +61,18 @@ export default function ExplodedView() {
   const [progress, setProgress] = useState(0);
   const [displayedIndex, setDisplayedIndex] = useState(-1);
   const [animPhase, setAnimPhase] = useState('settled');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  const LAYER_SIZE = isMobile ? LAYER_SIZE_MOBILE : LAYER_SIZE_DESKTOP;
+  const EXPANDED_GAP = isMobile ? EXPANDED_GAP_MOBILE : EXPANDED_GAP_DESKTOP;
 
   useEffect(() => {
     let ticking = false;
@@ -192,10 +206,10 @@ export default function ExplodedView() {
             width: '100%',
             maxWidth: '1280px',
             margin: '0 auto',
-            padding: '0 2rem',
+            padding: isMobile ? '0 1rem' : '0 2rem',
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '3rem',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+            gap: isMobile ? '1rem' : '3rem',
             alignItems: 'center',
           }}
         >
@@ -203,10 +217,13 @@ export default function ExplodedView() {
           <div
             style={{
               position: 'relative',
-              height: '500px',
+              height: isMobile ? 'auto' : '500px',
+              minHeight: isMobile ? '200px' : '500px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              order: isMobile ? 2 : 1,
+              width: '100%',
             }}
           >
             <div
@@ -218,18 +235,19 @@ export default function ExplodedView() {
                 transform: 'translateY(-50%)',
                 opacity: headerOpacity,
                 transition: 'opacity 200ms ease',
-                textAlign: 'left',
+                textAlign: isMobile ? 'center' : 'left',
                 color: textColor,
                 pointerEvents: headerOpacity > 0 ? 'auto' : 'none',
+                padding: isMobile ? '0 0.5rem' : 0,
               }}
             >
               <div
                 style={{
-                  fontSize: '0.75rem',
+                  fontSize: isMobile ? '0.625rem' : '0.75rem',
                   textTransform: 'uppercase',
                   letterSpacing: '0.3em',
                   opacity: 0.4,
-                  marginBottom: '1rem',
+                  marginBottom: isMobile ? '0.5rem' : '1rem',
                 }}
               >
                 The Technology
@@ -237,7 +255,7 @@ export default function ExplodedView() {
               <h2
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                  fontSize: isMobile ? '1.75rem' : 'clamp(2rem, 4vw, 3.5rem)',
                   lineHeight: 1.05,
                   letterSpacing: '-0.02em',
                   margin: 0,
@@ -254,10 +272,12 @@ export default function ExplodedView() {
               </h2>
               <div
                 style={{
-                  fontSize: '1rem',
+                  fontSize: isMobile ? '0.8125rem' : '1rem',
                   opacity: 0.65,
-                  marginTop: '1rem',
+                  marginTop: isMobile ? '0.75rem' : '1rem',
                   maxWidth: '28rem',
+                  marginLeft: isMobile ? 'auto' : 0,
+                  marginRight: isMobile ? 'auto' : 0,
                 }}
               >
                 A pressure sensory array, lithium-polymer battery, BLE radio – all wrapped under 3 milimeters of medical-grade silicone & carbon fiber.
@@ -270,6 +290,9 @@ export default function ExplodedView() {
                   position: 'absolute',
                   top: '50%',
                   left: 0,
+                  right: isMobile ? 0 : 'auto',
+                  marginLeft: isMobile ? 'auto' : 0,
+                  marginRight: isMobile ? 'auto' : 0,
                   transform: `translateY(calc(-50% + ${cardTranslateY}))`,
                   opacity: cardOpacity,
                   transition: cardUseTransition
@@ -279,17 +302,19 @@ export default function ExplodedView() {
                   borderColor: `rgba(255, 255, 255, ${cardBorderAlpha})`,
                   backdropFilter: 'blur(20px)',
                   WebkitBackdropFilter: 'blur(20px)',
-                  padding: '2rem',
-                  maxWidth: '28rem',
+                  padding: isMobile ? '1.25rem' : '2rem',
+                  maxWidth: isMobile ? 'calc(100vw - 2rem)' : '28rem',
+                  width: isMobile ? '100%' : 'auto',
                   borderRadius: '1rem',
                   borderWidth: '1px',
                   borderStyle: 'solid',
                   boxShadow: '0 20px 50px -10px rgba(0,0,0,0.3)',
+                  textAlign: isMobile ? 'center' : 'left',
                 }}
               >
                 <div
                   style={{
-                    fontSize: '0.75rem',
+                    fontSize: isMobile ? '0.625rem' : '0.75rem',
                     textTransform: 'uppercase',
                     letterSpacing: '0.2em',
                     color: textColor,
@@ -303,7 +328,7 @@ export default function ExplodedView() {
                     marginTop: '0.75rem',
                     marginBottom: 0,
                     fontFamily: 'var(--font-serif)',
-                    fontSize: '1.875rem',
+                    fontSize: isMobile ? '1.5rem' : '1.875rem',
                     fontWeight: 'normal',
                     color: textColor,
                   }}
@@ -313,7 +338,7 @@ export default function ExplodedView() {
                 <div
                   style={{
                     marginTop: '0.25rem',
-                    fontSize: '0.875rem',
+                    fontSize: isMobile ? '0.75rem' : '0.875rem',
                     color: textColor,
                     opacity: 0.55,
                   }}
@@ -322,11 +347,11 @@ export default function ExplodedView() {
                 </div>
                 <div
                   style={{
-                    marginTop: '1rem',
-                    fontSize: '0.875rem',
+                    marginTop: '0.75rem',
+                    fontSize: isMobile ? '0.8125rem' : '0.875rem',
                     color: textColor,
                     opacity: 0.7,
-                    lineHeight: 1.625,
+                    lineHeight: 1.6,
                   }}
                 >
                   {LAYERS[displayedIndex].desc}
@@ -339,13 +364,14 @@ export default function ExplodedView() {
           <div
             style={{
               position: 'relative',
-              height: '500px',
+              height: isMobile ? `${LAYER_SIZE + EXPANDED_GAP * 2}px` : '500px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              order: isMobile ? 1 : 2,
             }}
           >
-            <div style={{ position: 'relative', width: LAYER_SIZE, height: LAYER_SIZE }}>
+            <div style={{ position: 'relative', width: LAYER_SIZE, height: LAYER_SIZE, transition: 'width 200ms ease, height 200ms ease' }}>
               {LAYERS.map((layer, i) => (
                 <LayerSilhouette
                   key={layer.id}
@@ -354,6 +380,7 @@ export default function ExplodedView() {
                   isActive={activeIndex === i}
                   anyActive={activeIndex >= 0}
                   zIndex={LAYERS.length - i}
+                  size={LAYER_SIZE}
                 />
               ))}
             </div>
@@ -364,7 +391,7 @@ export default function ExplodedView() {
   );
 }
 
-function LayerSilhouette({ layer, translateY, isActive, anyActive, zIndex }) {
+function LayerSilhouette({ layer, translateY, isActive, anyActive, zIndex, size }) {
   const opacity = anyActive ? (isActive ? 1 : 0.3) : 1;
 
   return (
@@ -376,15 +403,15 @@ function LayerSilhouette({ layer, translateY, isActive, anyActive, zIndex }) {
         transform: `translate(-50%, calc(-50% + ${translateY}px))`,
         transition: 'transform 100ms linear',
         zIndex,
-        width: LAYER_SIZE,
-        height: LAYER_SIZE,
+        width: size,
+        height: size,
       }}
     >
       <Image
         src={layer.src}
         alt={`Therapeuo smart insole — ${layer.name} (${layer.sub})`}
-        width={LAYER_SIZE}
-        height={LAYER_SIZE}
+        width={size}
+        height={size}
         priority={layer.id === 1}
         draggable={false}
         sizes="(max-width: 768px) 60vw, 504px"
