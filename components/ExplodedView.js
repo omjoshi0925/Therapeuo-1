@@ -4,10 +4,10 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const LAYER_SIZE_DESKTOP = 504;
-const LAYER_SIZE_MOBILE = 280;
+const LAYER_SIZE_MOBILE = 220;
 const COLLAPSED_GAP = 6;
 const EXPANDED_GAP_DESKTOP = 80;
-const EXPANDED_GAP_MOBILE = 44;
+const EXPANDED_GAP_MOBILE = 30;
 
 const LAYERS = [
   {
@@ -64,7 +64,7 @@ export default function ExplodedView() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 639px)');
+    const mq = window.matchMedia('(max-width: 1023px)');
     const update = () => setIsMobile(mq.matches);
     update();
     mq.addEventListener('change', update);
@@ -209,7 +209,7 @@ export default function ExplodedView() {
             padding: isMobile ? '0 1rem' : '0 2rem',
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-            gap: isMobile ? '1rem' : '3rem',
+            gap: isMobile ? '0.5rem' : '3rem',
             alignItems: 'center',
           }}
         >
@@ -218,11 +218,11 @@ export default function ExplodedView() {
             style={{
               position: 'relative',
               height: isMobile ? 'auto' : '500px',
-              minHeight: isMobile ? '200px' : '500px',
+              minHeight: isMobile ? '240px' : '500px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              order: isMobile ? 2 : 1,
+              order: isMobile ? 1 : 1,
               width: '100%',
             }}
           >
@@ -364,11 +364,11 @@ export default function ExplodedView() {
           <div
             style={{
               position: 'relative',
-              height: isMobile ? `${LAYER_SIZE + EXPANDED_GAP * 2}px` : '500px',
+              height: isMobile ? `${LAYER_SIZE + CENTER_INDEX * EXPANDED_GAP * 2}px` : '500px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              order: isMobile ? 1 : 2,
+              order: isMobile ? 2 : 2,
             }}
           >
             <div style={{ position: 'relative', width: LAYER_SIZE, height: LAYER_SIZE, transition: 'width 200ms ease, height 200ms ease' }}>

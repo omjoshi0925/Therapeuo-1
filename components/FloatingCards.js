@@ -68,7 +68,7 @@ export default function FloatingCards() {
     <>
       {/* TOP-LEFT — Live percent weight-bearing gauge */}
       <FloatingCard
-        positionClass="hidden sm:block top-32 left-4 sm:left-12 lg:left-24"
+        positionClass="hidden lg:block top-32 left-4 sm:left-12 lg:left-24"
         offsetY={-10}
         innerClassName="px-4 py-3 w-56 flex items-center gap-3"
       >
@@ -100,7 +100,7 @@ export default function FloatingCards() {
 
       {/* TOP-RIGHT — Threshold alert */}
       <FloatingCard
-        positionClass="hidden sm:block top-44 right-4 sm:right-12 lg:right-24"
+        positionClass="hidden lg:block top-44 right-4 sm:right-12 lg:right-24"
         offsetY={-8}
         innerClassName="px-4 py-3 w-64 flex flex-col"
       >
@@ -115,7 +115,7 @@ export default function FloatingCards() {
 
       {/* BOTTOM-LEFT — Today's session */}
       <FloatingCard
-        positionClass="hidden sm:block bottom-40 left-2 sm:left-8 lg:left-20"
+        positionClass="hidden lg:block bottom-40 left-2 sm:left-8 lg:left-20"
         offsetY={-10}
         innerClassName="px-4 py-3 w-60 flex items-center gap-3"
       >
@@ -132,7 +132,7 @@ export default function FloatingCards() {
 
       {/* BOTTOM-RIGHT — Clinician panel */}
       <FloatingCard
-        positionClass="hidden sm:block bottom-44 right-2 sm:right-8 lg:right-16"
+        positionClass="hidden lg:block bottom-44 right-2 sm:right-8 lg:right-16"
         offsetY={-8}
         innerClassName="px-4 py-4 w-64 flex flex-col"
       >
@@ -179,7 +179,7 @@ export function MobileHeroCards() {
   const strokeDashoffset = 100 - pct;
 
   return (
-    <div className="sm:hidden mt-10 grid grid-cols-2 gap-3 w-full max-w-md mx-auto pointer-events-auto">
+    <div className="lg:hidden mt-10 grid grid-cols-2 gap-3 w-full max-w-md mx-auto pointer-events-auto">
       <div className="float-card px-3 py-3 flex items-center gap-2">
         <div className="relative w-9 h-9 shrink-0">
           <svg viewBox="0 0 40 40" className="w-9 h-9 -rotate-90">
