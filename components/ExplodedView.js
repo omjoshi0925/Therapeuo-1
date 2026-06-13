@@ -189,6 +189,31 @@ export default function ExplodedView() {
         transition: 'background-color 200ms linear',
       }}
     >
+      {/*
+        Force the correct mobile layout from the first paint, before the
+        JS isMobile check runs. Without this, the desktop two-column layout
+        flashes on load and briefly looks broken (text wraps one word per
+        line, insole oversized). These rules only apply at <=1023px, so the
+        desktop layout is untouched.
+      */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (max-width: 1023px) {
+              #technology .ev-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.5rem !important;
+                padding: 0 1rem !important;
+              }
+              #technology .ev-stack,
+              #technology .ev-layer {
+                max-width: ${LAYER_SIZE_MOBILE}px !important;
+                max-height: ${LAYER_SIZE_MOBILE}px !important;
+              }
+            }
+          `,
+        }}
+      />
       <div
         style={{
           position: 'sticky',
@@ -201,6 +226,7 @@ export default function ExplodedView() {
         }}
       >
         <div
+          className="ev-grid"
           style={{
             position: 'relative',
             width: '100%',
@@ -280,7 +306,7 @@ export default function ExplodedView() {
                   marginRight: isMobile ? 'auto' : 0,
                 }}
               >
-                A pressure sensory array, lithium-polymer battery, BLE radio – all wrapped under 3 milimeters of medical-grade silicone & carbon fiber.
+                A pressure sensory array, lithium-polymer battery, BLE radio – all wrapped under 3 millimeters of medical-grade silicone & carbon fiber.
               </div>
             </div>
 
@@ -371,7 +397,7 @@ export default function ExplodedView() {
               order: isMobile ? 2 : 2,
             }}
           >
-            <div style={{ position: 'relative', width: LAYER_SIZE, height: LAYER_SIZE, transition: 'width 200ms ease, height 200ms ease' }}>
+            <div className="ev-stack" style={{ position: 'relative', width: LAYER_SIZE, height: LAYER_SIZE, transition: 'width 200ms ease, height 200ms ease' }}>
               {LAYERS.map((layer, i) => (
                 <LayerSilhouette
                   key={layer.id}
@@ -396,6 +422,7 @@ function LayerSilhouette({ layer, translateY, isActive, anyActive, zIndex, size 
 
   return (
     <div
+      className="ev-layer"
       style={{
         position: 'absolute',
         left: '50%',
@@ -458,4 +485,3 @@ function interpolateColor(progress, stops) {
   }
   return stops[stops.length - 1].color;
 }
-
