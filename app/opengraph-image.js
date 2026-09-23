@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
 export const alt =
   "Therapeuo — World's First Smart Insole for Physical Therapy";
 export const size = { width: 1200, height: 630 };
